@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.student_system.mapper.xml.StudentMapper" >
+  <resultMap id="BaseResultMap" type="com.taotao.pojo.Student" >
+    <id column="student_id" property="studentId" jdbcType="VARCHAR" />
+    <result column="student_name" property="studentName" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="sfz_id" property="sfzId" jdbcType="CHAR" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="marjor_name" property="marjorName" jdbcType="VARCHAR" />
+    <result column="student_class" property="studentClass" jdbcType="VARCHAR" />
+    <result column="enter_date" property="enterDate" jdbcType="DATE" />
+    <result column="leave_date" property="leaveDate" jdbcType="DATE" />
+    <result column="birthday" property="birthday" jdbcType="DATE" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="graschool" property="graschool" jdbcType="VARCHAR" />
+    <result column="nation" property="nation" jdbcType="VARCHAR" />
+    <result column="native_place" property="nativePlace" jdbcType="VARCHAR" />
+    <result column="politicstatus" property="politicstatus" jdbcType="VARCHAR" />
+    <result column="student_password" property="studentPassword" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    student_id, student_name, sex, sfz_id, tel, marjor_name, student_class, enter_date, 
+    leave_date, birthday, address, graschool, nation, native_place, politicstatus, student_password, 
+    remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.taotao.pojo.StudentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from student
+    where student_id = #{studentId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from student
+    where student_id = #{studentId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.taotao.pojo.StudentExample" >
+    delete from student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.taotao.pojo.Student" >
+    insert into student (student_id, student_name, sex, 
+      sfz_id, tel, marjor_name, 
+      student_class, enter_date, leave_date, 
+      birthday, address, graschool, 
+      nation, native_place, politicstatus, 
+      student_password, remark)
+    values (#{studentId,jdbcType=VARCHAR}, #{studentName,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
+      #{sfzId,jdbcType=CHAR}, #{tel,jdbcType=VARCHAR}, #{marjorName,jdbcType=VARCHAR}, 
+      #{studentClass,jdbcType=VARCHAR}, #{enterDate,jdbcType=DATE}, #{leaveDate,jdbcType=DATE}, 
+      #{birthday,jdbcType=DATE}, #{address,jdbcType=VARCHAR}, #{graschool,jdbcType=VARCHAR}, 
+      #{nation,jdbcType=VARCHAR}, #{nativePlace,jdbcType=VARCHAR}, #{politicstatus,jdbcType=VARCHAR}, 
+      #{studentPassword,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.taotao.pojo.Student" >
+    insert into student
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="studentId != null" >
+        student_id,
+      </if>
+      <if test="studentName != null" >
+        student_name,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="sfzId != null" >
+        sfz_id,
+      </if>
+      <if test="tel != null" >
+        tel,
+      </if>
+      <if test="marjorName != null" >
+        marjor_name,
+      </if>
+      <if test="studentClass != null" >
+        student_class,
+      </if>
+      <if test="enterDate != null" >
+        enter_date,
+      </if>
+      <if test="leaveDate != null" >
+        leave_date,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="graschool != null" >
+        graschool,
+      </if>
+      <if test="nation != null" >
+        nation,
+      </if>
+      <if test="nativePlace != null" >
+        native_place,
+      </if>
+      <if test="politicstatus != null" >
+        politicstatus,
+      </if>
+      <if test="studentPassword != null" >
+        student_password,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="studentId != null" >
+        #{studentId,jdbcType=VARCHAR},
+      </if>
+      <if test="studentName != null" >
+        #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="sfzId != null" >
+        #{sfzId,jdbcType=CHAR},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="marjorName != null" >
+        #{marjorName,jdbcType=VARCHAR},
+      </if>
+      <if test="studentClass != null" >
+        #{studentClass,jdbcType=VARCHAR},
+      </if>
+      <if test="enterDate != null" >
+        #{enterDate,jdbcType=DATE},
+      </if>
+      <if test="leaveDate != null" >
+        #{leaveDate,jdbcType=DATE},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=DATE},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="graschool != null" >
+        #{graschool,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null" >
+        #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="nativePlace != null" >
+        #{nativePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="politicstatus != null" >
+        #{politicstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="studentPassword != null" >
+        #{studentPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.taotao.pojo.StudentExample" resultType="java.lang.Integer" >
+    select count(*) from student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update student
+    <set >
+      <if test="record.studentId != null" >
+        student_id = #{record.studentId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentName != null" >
+        student_name = #{record.studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null" >
+        sex = #{record.sex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sfzId != null" >
+        sfz_id = #{record.sfzId,jdbcType=CHAR},
+      </if>
+      <if test="record.tel != null" >
+        tel = #{record.tel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.marjorName != null" >
+        marjor_name = #{record.marjorName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentClass != null" >
+        student_class = #{record.studentClass,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enterDate != null" >
+        enter_date = #{record.enterDate,jdbcType=DATE},
+      </if>
+      <if test="record.leaveDate != null" >
+        leave_date = #{record.leaveDate,jdbcType=DATE},
+      </if>
+      <if test="record.birthday != null" >
+        birthday = #{record.birthday,jdbcType=DATE},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.graschool != null" >
+        graschool = #{record.graschool,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nation != null" >
+        nation = #{record.nation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nativePlace != null" >
+        native_place = #{record.nativePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.politicstatus != null" >
+        politicstatus = #{record.politicstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentPassword != null" >
+        student_password = #{record.studentPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update student
+    set student_id = #{record.studentId,jdbcType=VARCHAR},
+      student_name = #{record.studentName,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=VARCHAR},
+      sfz_id = #{record.sfzId,jdbcType=CHAR},
+      tel = #{record.tel,jdbcType=VARCHAR},
+      marjor_name = #{record.marjorName,jdbcType=VARCHAR},
+      student_class = #{record.studentClass,jdbcType=VARCHAR},
+      enter_date = #{record.enterDate,jdbcType=DATE},
+      leave_date = #{record.leaveDate,jdbcType=DATE},
+      birthday = #{record.birthday,jdbcType=DATE},
+      address = #{record.address,jdbcType=VARCHAR},
+      graschool = #{record.graschool,jdbcType=VARCHAR},
+      nation = #{record.nation,jdbcType=VARCHAR},
+      native_place = #{record.nativePlace,jdbcType=VARCHAR},
+      politicstatus = #{record.politicstatus,jdbcType=VARCHAR},
+      student_password = #{record.studentPassword,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.taotao.pojo.Student" >
+    update student
+    <set >
+      <if test="studentName != null" >
+        student_name = #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="sfzId != null" >
+        sfz_id = #{sfzId,jdbcType=CHAR},
+      </if>
+      <if test="tel != null" >
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="marjorName != null" >
+        marjor_name = #{marjorName,jdbcType=VARCHAR},
+      </if>
+      <if test="studentClass != null" >
+        student_class = #{studentClass,jdbcType=VARCHAR},
+      </if>
+      <if test="enterDate != null" >
+        enter_date = #{enterDate,jdbcType=DATE},
+      </if>
+      <if test="leaveDate != null" >
+        leave_date = #{leaveDate,jdbcType=DATE},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="graschool != null" >
+        graschool = #{graschool,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null" >
+        nation = #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="nativePlace != null" >
+        native_place = #{nativePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="politicstatus != null" >
+        politicstatus = #{politicstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="studentPassword != null" >
+        student_password = #{studentPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where student_id = #{studentId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.taotao.pojo.Student" >
+    update student
+    set student_name = #{studentName,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      sfz_id = #{sfzId,jdbcType=CHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      marjor_name = #{marjorName,jdbcType=VARCHAR},
+      student_class = #{studentClass,jdbcType=VARCHAR},
+      enter_date = #{enterDate,jdbcType=DATE},
+      leave_date = #{leaveDate,jdbcType=DATE},
+      birthday = #{birthday,jdbcType=DATE},
+      address = #{address,jdbcType=VARCHAR},
+      graschool = #{graschool,jdbcType=VARCHAR},
+      nation = #{nation,jdbcType=VARCHAR},
+      native_place = #{nativePlace,jdbcType=VARCHAR},
+      politicstatus = #{politicstatus,jdbcType=VARCHAR},
+      student_password = #{studentPassword,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where student_id = #{studentId,jdbcType=VARCHAR}
+  </update>
+</mapper>
