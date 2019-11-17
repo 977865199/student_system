@@ -4,7 +4,7 @@
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
-          <element id="module-output" name="student_system" />
+          <element id="module-output" name="stuednt_system" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: org.glassfish.web:javax.servlet.jsp.jstl:1.2.2" />
@@ -48,7 +48,7 @@
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/target/onlineCourse/META-INF/MANIFEST.MF" />
       </element>
-      <element id="javaee-facet-resources" facet="student_system/web/Web" />
+      <element id="javaee-facet-resources" facet="stuednt_system/web/Web" />
     </root>
   </artifact>
 </component>
